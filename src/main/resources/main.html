@@ -28,8 +28,8 @@
 <form>
     <span>Container Number:</span>
     <input type="text" id="id"/>
-    <span>Temperatura Atual:</span>
-    <input type="text" id="temperatura"/>
+    <span>Current Temperature:</span>
+    <input type="text" id="temperature"/>
     <span>Beer</span>
     <select id="beerType">
         <option value="PILSEN">PILSEN</option>
@@ -44,41 +44,41 @@
 
 <script>
 (function(){
-   var atualizarContainer = function(){
+   var updateContainer = function(){
        $.get("http://localhost:8000/containers", function(values){
-           var $divPai = $('<div>');
+           var $parentDiv = $('<div>');
            values.forEach(container => {
               var $div = $('<div class="container">');
               $div.append("<h3> Container Number: " + container.id + "</h3>");
               $div.append("<span> Beer: " + container.beer + "</span>");
-              $div.append("<span> Temperatura Atual: " + container.currentTemperature + "</span>");
-              $div.append("<span> Temperatura Maxima: " + container.maxTemperature + "</span>");
-              $div.append("<span> Temperatura Minima: " + container.minTemperature + "</span>");
+              $div.append("<span> Current Temperature: " + container.currentTemperature + " ºC</span>");
+              $div.append("<span> Max Temperature: " + container.maxTemperature + " ºC</span>");
+              $div.append("<span> Min Temperature: " + container.minTemperature + " ºC</span>");
 
               if(container.beer && (container.currentTemperature > container.maxTemperature || container.currentTemperature < container.minTemperature)){
                 $div.addClass("red");
               }
 
-              $divPai.append($div);
+              $parentDiv.append($div);
            });
-           $("#root").html($divPai);
+           $("#root").html($parentDiv);
         });
     }
-    setInterval(atualizarContainer, 5000);
-    atualizarContainer();
+    setInterval(updateContainer, 5000);
+    updateContainer();
 
     $('#submit').on("click", function(){
         var obj = {
            "id": $("#id").val(),
            "beer": $("#beerType").val(),
-           "currentTemperature": $("#temperatura").val()
+           "currentTemperature": $("#temperature").val()
         }
 
         if(!obj.id){
            alert("Container Number is a mandatory field!");
            return;
         } else if(!obj.currentTemperature){
-           alert("temperature is a mandatory field!");
+           alert("Temperature is a mandatory field!");
            return;
         }
 
@@ -93,7 +93,7 @@
         }
 
         $.ajax(settings).done(function (response) {
-          atualizarContainer();
+          updateContainer();
         });
     });
 }());
