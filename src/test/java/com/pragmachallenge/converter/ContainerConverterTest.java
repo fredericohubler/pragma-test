@@ -45,7 +45,7 @@ public class ContainerConverterTest {
     @Test
     public void shouldConvertInputDTOToModel() {
         Container expected = createModel();
-        Container result = converter.toModel(createInputDTO());
+        Container result = converter.toModel(createInputDTO(), ID);
 
         assertThat(result, is(expected));
     }
@@ -76,7 +76,6 @@ public class ContainerConverterTest {
         ContainerInputDTO dto = new ContainerInputDTO();
 
         dto.setBeer(BEER);
-        dto.setId(ID);
         dto.setCurrentTemperature(CURRENT_TEMPERATURE);
 
         return dto;

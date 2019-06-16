@@ -26,12 +26,12 @@ public class ContainerConverter {
                 .collect(Collectors.toList());
     }
 
-    public Container toModel(ContainerInputDTO dto){
+    public Container toModel(ContainerInputDTO dto, Long id){
         Container container = new Container();
 
         container.setBeer(dto.getBeer());
         container.setCurrentTemperature(dto.getCurrentTemperature());
-        container.setId(dto.getId());
+        container.setId(id);
 
         return container;
     }

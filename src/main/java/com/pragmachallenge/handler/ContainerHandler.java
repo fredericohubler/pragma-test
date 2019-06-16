@@ -77,10 +77,9 @@ public class ContainerHandler {
 
         if (containerId.isPresent()) {
             ContainerInputDTO containerToUpdate = mapper.readValue(httpExchange.getRequestBody(), ContainerInputDTO.class);
-            containerService.updateContainer(converter.toModel(containerToUpdate));
+            containerService.updateContainer(converter.toModel(containerToUpdate, containerId.get()));
             writeResponse(httpExchange, null, 204);
         }
-
     }
 
     private Optional<Long> getIdFromUri(URI uri) {

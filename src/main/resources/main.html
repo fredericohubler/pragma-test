@@ -68,13 +68,13 @@
     updateContainer();
 
     $('#submit').on("click", function(){
+        var containerId = $("#id").val()
         var obj = {
-           "id": $("#id").val(),
            "beer": $("#beerType").val(),
            "currentTemperature": $("#temperature").val()
         }
 
-        if(!obj.id){
+        if(!containerId){
            alert("Container Number is a mandatory field!");
            return;
         } else if(!obj.currentTemperature){
@@ -83,7 +83,7 @@
         }
 
         var settings = {
-          "url": "http://localhost:8000/containers/" + obj.id,
+          "url": "http://localhost:8000/containers/" + containerId,
           "method": "PUT",
           "data": JSON.stringify(obj),
           "dataType": "json",

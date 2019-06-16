@@ -5,7 +5,6 @@ import com.pragmachallenge.model.BeerEnum;
 public class ContainerInputDTO {
 
     private BeerEnum beer;
-    private Long id;
     private int currentTemperature;
 
     public BeerEnum getBeer() {
@@ -14,14 +13,6 @@ public class ContainerInputDTO {
 
     public void setBeer(BeerEnum beer) {
         this.beer = beer;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public int getCurrentTemperature() {
@@ -40,15 +31,13 @@ public class ContainerInputDTO {
         ContainerInputDTO that = (ContainerInputDTO) o;
 
         if (currentTemperature != that.currentTemperature) return false;
-        if (beer != that.beer) return false;
-        return id != null ? id.equals(that.id) : that.id == null;
+        return beer == that.beer;
 
     }
 
     @Override
     public int hashCode() {
         int result = beer != null ? beer.hashCode() : 0;
-        result = 31 * result + (id != null ? id.hashCode() : 0);
         result = 31 * result + currentTemperature;
         return result;
     }
@@ -57,7 +46,6 @@ public class ContainerInputDTO {
     public String toString() {
         return "ContainerInputDTO{" +
                 "beer=" + beer +
-                ", id=" + id +
                 ", currentTemperature=" + currentTemperature +
                 '}';
     }
