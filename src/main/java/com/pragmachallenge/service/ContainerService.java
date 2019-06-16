@@ -15,6 +15,10 @@ public class ContainerService {
         containerRepository = ContainerRepository.getInstance();
     }
 
+    public ContainerService(ContainerRepository containerRepository) {
+        this.containerRepository = containerRepository;
+    }
+
     public static ContainerService getInstance() {
         if(INSTANCE == null){
             INSTANCE = new ContainerService();
