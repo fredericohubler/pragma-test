@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <style>
+        span {
+            display: block;
+        }
+        #root .container {
+            width: 200px;
+            border: 1px solid black;
+            padding: 5px;
+            background-color: green;
+            display: inline-block;
+        }
+        #root .container.red{
+           background-color: red;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="root">
+</div>
+
+<form>
+    <span>Container Number:</span>
+    <input type="text" id="id"/>
+    <span>Temperatura Atual:</span>
+    <input type="text" id="temperatura"/>
+    <span>Beer</span>
+    <select id="beerType">
+        <option value="PILSEN">PILSEN</option>
+        <option value="IPA">IPA</option>
+        <option value="LAGGER">LAGGER</option>
+        <option value="STOUT">STOUT</option>
+        <option value="WHEAT_BEER">WHEAT BEER</option>
+        <option value="PALE_ALE">PALE ALE</option>
+    </select>
+    <input type="button" value="Submit" id="submit"/>
+</form>
+
+<script>
+(function(){
+   var atualizarContainer = function(){
+       $.get("http://localhost:8000/containers", function(values){
+           var $divPai = $('<div>');
+           values.forEach(container => {
+              var $div = $('<div class="container">');
+              $div.append("<h3> Container Number: " + container.id + "</h3>");
+              $div.append("<span> Beer: " + container.beer + "</span>");
+              $div.append("<span> Temperatura Atual: " + container.currentTemperature + "</span>");
+              $div.append("<span> Temperatura Maxima: " + container.maxTemperature + "</span>");
+              $div.append("<span> Temperatura Minima: " + container.minTemperature + "</span>");
+
+              if(container.beer && (container.currentTemperature > container.maxTemperature || container.currentTemperature < container.minTemperature)){
+                $div.addClass("red");
+              }
+
+              $divPai.append($div);
+           });
+           $("#root").html($divPai);
+        });
+    }
+    setInterval(atualizarContainer, 5000);
+    atualizarContainer();
+
+    $('#submit').on("click", function(){
+        var obj = {
+           "id": $("#id").val(),
+           "beer": $("#beerType").val(),
+           "currentTemperature": $("#temperatura").val()
+        }
+
+        if(!obj.id){
+           alert("Container Number is a mandatory field!");
+           return;
+        } else if(!obj.currentTemperature){
+           alert("temperature is a mandatory field!");
+           return;
+        }
+
+        var settings = {
+          "url": "http://localhost:8000/containers/" + obj.id,
+          "method": "PUT",
+          "data": JSON.stringify(obj),
+          "dataType": "json",
+          "error" : function (e){
+                alert (e.responseText);
+            }
+        }
+
+        $.ajax(settings).done(function (response) {
+          atualizarContainer();
+        });
+    });
+}());
+
+</script>
+
+</body>
+
+</html>
