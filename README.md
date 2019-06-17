@@ -143,8 +143,8 @@ How to use
 > ![Image](https://i.imgur.com/MQYEt79.png)
 >
 >
-#### Errors
->The program have the following errors: 
+#### Form Validations
+>The front-end will perform the following validations: 
 >
 >
 > ![Image](https://i.imgur.com/jZ7qRtC.png)
@@ -158,9 +158,41 @@ How to use
 >
 ---
 
-
-
-
+Challenge Instruction
+--
+### Questions 
+>`In a real-life scenario, you would ask questions to clarify any doubts but for this
+challenge, document the questions you would ask and provide your own answers in
+the readme file.`
+>
+> **Q:** How many containers does the truck have?
+>>There is no way to know for sure. I assumed there was 12 containers, 2 for each type of beer.
+>
+> **Q:** The update endpoint should receive a beer type and set the min and max temperatures based on that, or should it receive min and max values separately?
+>>Since the challenge provided information about each beer's temperature limits, I supposed it would be better to send just the beer type on an update.
+>
+> **Q:** Can the solution be implemented using Java instead of Javascript(as it is requested on the challenge)?
+>>For the sake of this project, I assumed the answer was yes.
+>
+### Code Highlights 
+>**Framework-less solution**
+>>By using only Java and no frameworks, it is possible to have more control over whats going on in the code, thus making debugging easier. Also, by not having a framework, build and deploy times tend to be faster.
+>
+>**Design Patterns**
+>>The project is built with an MVC Architecture in mind, and have all of its layers well defined, this makes giving support to the project easier. Also, the objects from the project are divided in InputDTO, OutputDTO and a Model object, using the Converter Pattern to convert from one to another, thus further decoupling the projects modules.
+>
+>**Unit Tests**
+>>By having Unit Tests, implementing new functionalities and correcting possible bugs can be done in a safer way.
+>
+### What would you do in version 2.0?
+* Validate the values that are being sent on the Current Temperature field.
+* Create a logic that sends -1 on the response length parameter when sending a header with code 204.
+* On the front-end, instead of updating the screen by pulling each 5 seconds, do the update logic by opening a socket.
+* Think of a better way to instanciate objects other than Singleton(this would make unit testing easier).
+* Remove the notification logic from the front-end and put it on the back-end(thus centralizing all logic on the back-end).
+* Find a better way to test the ContainerHandler class.
+* Add integration tests.
+* Centralize all configurations on a single file.
 
 
 
