@@ -1,3 +1,5 @@
+PragmaBrewery Code Challenge
+==
 Quickstart
 --
 ### Prerequisites
@@ -10,8 +12,6 @@ Quickstart
 5. Run command `java -jar pragma-challenge-1.0-SNAPSHOT-jar-with-dependencies.jar`
 6. Open static HTML located on `src\main\resources\main.html`
 
-PragmaBrewery Code Challenge
-==
 The Problem
 --
 >Meet Shane. He works at PragmaBrewery, a boutique microbrewery in a rural area of Australia,
