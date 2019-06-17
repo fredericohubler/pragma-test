@@ -15,6 +15,7 @@ import java.util.Optional;
 import static java.util.Arrays.asList;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -36,7 +37,7 @@ public class ContainerServiceTest {
 
     @Before
     public void setUp() {
-        repository = Mockito.mock(ContainerRepository.class);
+        repository = mock(ContainerRepository.class);
         service = new ContainerService(repository);
     }
 
@@ -53,6 +54,7 @@ public class ContainerServiceTest {
         whenGetAllContainers();
 
         assertThat(service.getAllContainers().size(), is(asList(createModel(), createAnotherModel()).size()));
+        assertThat(service.getAllContainers(), is(asList(createModel(), createAnotherModel())));
     }
 
     @Test

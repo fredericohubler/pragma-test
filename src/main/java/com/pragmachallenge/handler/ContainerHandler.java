@@ -15,7 +15,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
-public class ContainerHandler {
+public class ContainerHandler implements HttpHandler {
     private String CONTEXT = "/containers/";
     private ContainerService containerService;
     private ContainerConverter converter;
@@ -27,34 +27,39 @@ public class ContainerHandler {
         this.converter = ContainerConverter.getInstance();
     }
 
-    public HttpHandler handle() {
-        return httpExchange -> {
-            try {
-                switch (httpExchange.getRequestMethod()) {
-                    case "GET" :
-                        get(httpExchange);
-                        break;
+    public ContainerHandler(ContainerService containerService, ContainerConverter converter, ObjectMapper mapper) {
+        this.containerService = containerService;
+        this.converter = converter;
+        this.mapper = mapper;
+    }
 
-                    case "PUT" :
-                        put(httpExchange);
-                        break;
+    @Override
+    public void handle(HttpExchange httpExchange) throws IOException {
+        try {
+            switch (httpExchange.getRequestMethod()) {
+                case "GET" :
+                    get(httpExchange);
+                    break;
 
-                    case "OPTIONS":
-                        writeResponse(httpExchange, null, 200);
-                        break;
+                case "PUT" :
+                    put(httpExchange);
+                    break;
 
-                    default :
-                        httpExchange.sendResponseHeaders(405, -1);
-                        break;
-                }
-            } catch (BusinesException e) {
-                writeResponse(httpExchange, e.getMessage().getBytes(), 404);
-            } catch (Exception e) {
-                writeResponse(httpExchange, e.getMessage().getBytes(), 500);
-            }finally {
-                httpExchange.close();
+                case "OPTIONS":
+                    writeResponse(httpExchange, null, 200);
+                    break;
+
+                default :
+                    httpExchange.sendResponseHeaders(405, -1);
+                    break;
             }
-        };
+        } catch (BusinesException e) {
+            writeResponse(httpExchange, e.getMessage().getBytes(), 404);
+        } catch (Exception e) {
+            writeResponse(httpExchange, e.getMessage().getBytes(), 500);
+        }finally {
+            httpExchange.close();
+        }
     }
 
     public void get(HttpExchange httpExchange) throws IOException {
@@ -93,7 +98,7 @@ public class ContainerHandler {
     }
 
 
-    public void writeResponse(HttpExchange httpExchange, byte[] response, int code) throws IOException {
+    private void writeResponse(HttpExchange httpExchange, byte[] response, int code) throws IOException {
         httpExchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
         httpExchange.getResponseHeaders().add("Access-Control-Allow-Methods", "PUT, GET, OPTIONS");
         httpExchange.getResponseHeaders().add("Content-Type", "application/json");
@@ -102,5 +107,4 @@ public class ContainerHandler {
         output.write(response);
         output.flush();
     }
-
 }

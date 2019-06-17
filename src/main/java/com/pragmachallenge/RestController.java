@@ -14,7 +14,7 @@ public class RestController {
         try {
             HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
 
-            server.createContext("/containers", containerHandler.handle());
+            server.createContext("/containers", containerHandler);
             server.setExecutor(null);
             server.start();
             System.out.println("Server started successfully.");
