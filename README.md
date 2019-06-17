@@ -5,6 +5,7 @@ Quickstart
 ### Prerequisites
 * Have Maven installed
 
+### How to run
 1. Clone git repository `https://github.com/fredericohubler/pragma-test.git`
 2. Open the project folder on terminal
 3. Run command `mvn package`
@@ -84,6 +85,10 @@ The Solution
 >The solution was implemented with a Microservice Architecture based on pure Java. Furthermore, considering the scale of the application, no database was used.
 >
 >The front-end was developed with Javascript, HTML and CSS. Using JQuery library to communicate with the back-end.
+>
+>In order to run the application tests through command line, execute the command `mvn test` on the project folder
+>
+>In order to download the RELEASE jar directly, go to the link: `https://github.com/fredericohubler/pragma-test/releases`
 #### Dashboard 
 > ![Image](https://i.imgur.com/Mquj1OK.png)
 > 
