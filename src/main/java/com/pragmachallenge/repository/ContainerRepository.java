@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import java.util.stream.LongStream;
 
 public class ContainerRepository {
+
     private static final int TEMPERATURA_INICIAL = 10;
     private static ContainerRepository INSTANCE;
 
@@ -15,6 +16,13 @@ public class ContainerRepository {
 
     public ContainerRepository() {
         init();
+    }
+
+    public static ContainerRepository getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new ContainerRepository();
+        }
+        return INSTANCE;
     }
 
     public List<Container> getContainerList() {
@@ -43,14 +51,6 @@ public class ContainerRepository {
             container.setCurrentTemperature(TEMPERATURA_INICIAL);
             return container;
         }).collect(Collectors.toList());
-
-    }
-
-    public static ContainerRepository getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new ContainerRepository();
-        }
-        return INSTANCE;
     }
 
 }
