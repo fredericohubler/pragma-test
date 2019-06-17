@@ -179,9 +179,12 @@ the readme file.`
 > **Q:** Can the solution be implemented using Java instead of Javascript(as it is requested on the challenge)?
 >>For the sake of this project, I assumed the answer was yes.
 >
+> **Q:** Should the endpoint to set the current temperature and the type of beer be together?
+>>I assumed the answer would be no, since the only moment this endpoint would be used would be in inicialization.
+>
 ### Code Highlights 
 >**Framework-less solution**
->>By using only Java and no frameworks, it is possible to have more control over whats going on in the code, thus making debugging easier. Also, by not having a framework, build and deploy times tend to be faster.
+>>By not using frameworks, it is possible to have more control over whats going on in the code, generating a specific solution to the problem in hand. Also, by not having a framework, build and deploy times tend to be faster.
 >
 >**Design Patterns**
 >>The project is built with an MVC Architecture in mind, and have all of its layers well defined, this makes giving support to the project easier. Also, the objects from the project are divided in InputDTO, OutputDTO and a Model object, using the Converter Pattern to convert from one to another, thus further decoupling the projects modules.
@@ -198,6 +201,9 @@ the readme file.`
 * Find a better way to test the ContainerHandler class.
 * Add integration tests.
 * Centralize all configurations on a single file.
+* Offer the front-end in a web page application instead of a static HTML file, thus separating the project on a front-end and a back-end one(this would better separate the responsibilities of the project).
+* Create profiles(like dev, hlg, prod).
+* Containerize the application.
 
 
 
